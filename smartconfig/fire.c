@@ -1,64 +1,48 @@
-//é”™è¯¯ä¸€ è™½ç„¶ä¸ºå‡½æ•°æŒ‡é’ˆä½†æ˜¯å»çœ‹è¿™ä¸ªopen ï¼Œä»–æ˜¯ç”±intæ¥çš„ï¼Œæ‰€ä»¥æˆ‘ä»¬å¯¹è¿”å›å€¼æ²¡æœ‰ä»€ä¹ˆè¦æ±‚
-
-/*struct Devices
-{
-
-    char deviceName[128];
-    int status;
-    int pinNum;
-    int (*close)(int pinNum);
-    int (*open)(int pinNum);
-    int (*read)(int pinNum);
-    int (*deviceInit)(int pinNum);
-    struct Devices *next;
-};
-*/
+//»ğÔÖ¿ò¼ÜµÄ±àĞ´
+//²½ÖèÒ» ¸ÄÔ¡ÊÒµÆµÄ¿ò¼Ü£¬È»ºó³õÊ¼»¯µÄÊ±ºò¸ÄÎªINPUT fireInitµÄÓÉÀ´
+//²½Öè¶ş ¶¨ÒåÒ»¸ö×¨ÃÅ¶ÁÊı¾İ·µ»ØµÄº¯Êı firestatusReadº¯ÊıµÄÓÉÀ´
+//²½ÖèÈı ½á¹¹ÌåÒ²ÊÇµãÒıÓÃµÄ·½Ê½£¬È»ºóÔÚmainProÉÏÃæ¼ÓÒ»ĞĞ¹©Ñ¡Ôñ£¬ÔÚcontrlDevices±©Â¶Ò»ÏÂ¼´¿É
 
 #include "contrlDevices.h"
 
-int fireopen(int pinNum)
+int fireOpen(int pinNum)
 {
-    digitalWrite(pinNum, LOW);
+	digitalWrite(pinNum,LOW);
 }
-
-int fireclose(int pinNum)
+int fireStatusRead(int pinNum)
 {
-    digitalWrite(pinNum, HIGH);
+	return digitalRead(pinNum);
 }
-
-int initFire(int pinNum)
+int fireInit(int pinNum)
 {
-    pinMode(pinNum, INPUT);
-    digitalWrite(pinNum, LOW);
+	pinMode(pinNum,INPUT);
+	digitalWrite(pinNum,HIGH);
 }
-
-int readfireStatus(int pinNum)
+int fireStatus(int status)
 {
-    int kk;
-    kk = digitalRead(pinNum);
-    return kk;
+	
 }
-
-struct Devices fire = 
-{
-    .deviceName = "fire",
-    .pinNum = 25,
-    .open = fireopen,
-    .close = fireclose,
-    .deviceInit = initFire,
-    .read = readfireStatus,
-    .next = NULL
+struct Devices fire = {
+	.deviceName = "fire",
+	.pinNum = 25,
+	.open = fireOpen,
+	.readStatus = fireStatusRead,
+	.deviceInit = fireInit,
+	.changeStatus = fireStatus
 };
 
-struct Devices* addFireToDevicesLink(struct Devices* phead)
+//ÕâÊÇÒ»¸ö½Ó¿Ú-¡·ĞèÒª±©Â¶¸øÍ·ÎÄ¼ş£¬²¢ÇÒÔÚmainÖĞµ÷ÓÃ
+//²¢ÇÒ µ±Õâ¸öº¯Êı±»µ÷ÓÃµÄÊ±ºò-¡·°ÑbathroomLight¼ÓÈëÁ´±íÖĞ
+struct Devices* addFireToDeviceLink(struct Devices *phead)
 {
-    if(phead == NULL)
-    {
-        phead = &fire;
-        return phead;
-    }else{
-        fire.next = phead;
-        phead = &fire;
-        return phead;
-    }
+	if(phead == NULL){
+		phead = &fire;
+		return phead;
+	}else{
+		fire.next = phead;
+		phead = &fire;
+		return phead;
+	}
 };
+
+

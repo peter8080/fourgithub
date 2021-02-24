@@ -1,14 +1,37 @@
-//é”™è¯¯ä¸€ char[] å¤šå¤§è¦å†™ä¸€ä¸‹ ä¸€èˆ¬ä¸ºchar ip[128]
-//
+//ÊäÈëÖ¸ÁîÍ·ÎÄ¼ş
+//²½ÖèÒ» ³õÊ¼»¯´®¿Ú µÚÈı¸öµÄÓÉÀ´(º¯ÊıÖ¸ÕëµÄÓÃ·¨)
+//²½Öè¶ş È»ºóÍ¨¹ıÖ¸Áî´«Èë µÚËÄ¸öµÄÓÉÀ´£¨º¯ÊıÖ¸ÕëµÄÓÃ·¨£©
+//²½ÖèÈı getCommandº¯ÊıºÍcommandµÄÔÙ²úÉúÁªÏµ µÚ¶ş¸öµÄÓÉÀ´
+//²½ÖèËÄ ´æ·ÅÈÕÖ¾ĞèÒª¿Õ¼ä µÚÎå¸öµÄÓÉÀ´
+//²½ÖèÎå ½á¹¹ÌåÖ¸Õë±Ø±¸µÄnext µÚÁùĞĞµÄÓÉÀ´
+
+//²½ÖèÁù ÅªÍêËùÓĞµÄµÆºÍ»ğÔÖÄ£¿éÖ®ºó£¬ÔÚÕâ±ßÅªÓïÒôµÄ¿ØÖÆ£¬ÏÈ¼ÓÍ·ÎÄ¼ş
+//²½ÖèÆß ĞèÒª¼ÓÒ»¸ödeviceName¸øÉùÒôÄ£¿é deviceNameµÄÓÉÀ´
+//²½Öè°Ë ´´½¨Ò»¸öfd         voiceContrlÉùÒôÄ£¿éµ÷ÓÃÍê»á·µ»Øfd 
+//²½Öè¾Å ·ÅÕâ¸öÍ·²å·¨½øÀ´£¬ÈÃmainµ÷ÓÃinputCommand.hÈ»ºóÔÙµ÷ÓÃµ½voiceControl.c
+
+//²½ÖèÊ® socketÒªÓÃipºÍ¶Ë¿Úport char port[12] char ipAddress[32]µÄÓÉÀ´
+//²½ÖèÊ®Ò» socketGetCommandÒªÓÃµ½s_fd int sfdµÄÓÉÀ´
+//²½ÖèÊ®¶ş ·Å½Ó¿Ú½øÀ´
 #include <wiringPi.h>
 #include <stdlib.h>
 
 struct InputCommander
-{
-    char commandName[128];
-    char command[128];
-    int sfd;
-    char ip;
-    char ipAddress;
-    
-}
+{	
+	char commandName[128];//Ö¸ÁîÃû×Ö
+	char deviceName[128];//Éè±¸Ãû×Ö
+	char command[32];//Ö¸Áî
+	int (*Init)(struct InputCommander *voicer,char *ipAddress,char *port);//´®¿ÚÖ¸Áî£¬µØÖ·£¬¶Ë¿ÚºÅ
+	int (*getCommand)(struct InputCommander *voicer);
+	char log[1024];//ÈÕÖ¾
+	int fd;
+	char port[12];
+	char ipAddress[32];
+	int sfd;
+	struct InputCommander *next;
+};
+
+struct InputCommander* addvoiceContrlToInputCommandLink(struct InputCommander* phead);
+struct InputCommander* addsocketContrlToInputCommandLink(struct InputCommander* phead);
+
+

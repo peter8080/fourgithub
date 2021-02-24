@@ -1,62 +1,151 @@
-//é”™è¯¯ä¸€ è¦æ¯”è¾ƒçš„è¯ï¼Œå°±ä¼šæœ‰ä¸¤ä¸ªæŒ‡é’ˆ struct Devices *tmp å’Œstruct Devices*devicehead
-//é”™è¯¯äºŒ é“¾è¡¨çš„å¤´æŒ‡é’ˆè®¾æ³•:æ˜¯æŠŠè‡ªå·±ä½œä¸ºæŒ‡é’ˆå‚æ•°ä¼ è¿›å»devicehead = addBathroomLightToDeviceesLink(devicehead);
-//é”™è¯¯ä¸‰ tmpä½œä¸ºå¯¹æ¯”çš„æŒ‡é’ˆï¼Œä»–é‡Œé¢å¸¦æœ‰nameè¿˜æœ‰æ•´ä¸ªé“¾è¡¨devicehead
-//é”™è¯¯å›› ç”¨struct Devices* è€Œä¸æ˜¯int å› ä¸ºè¿”å›çš„tmpæ˜¯æŒ‡é’ˆï¼Œæ‰€ä»¥åˆ›å»ºçš„å‡½æ•°ä¸ºè¿”å›å€¼ä¸ºæŒ‡é’ˆçš„ç»“æ„ä½“ 
-//é”™è¯¯äº” ä»£ç ä¹ æƒ¯ï¼Œå¯¹æ¯”çš„å‡½æ•°è¦å…ˆæŠŠä¼ è¿›æ¥çš„æŒ‡é’ˆæ‹¿ä¸‹æ¥ï¼Œç„¶åçœ‹ä¸€ä¸‹æ˜¯å¦ä¸ºç©ºï¼Œ å‡½æ•°ä¸­signçš„ç”±æ¥
-//é”™è¯¯å…­ strcmpå°±ç®—ä¼ è¿›æ¥çš„å€¼ä¸ä¸ºç©ºï¼Œä½†æ˜¯ä»¥è¦ç”¨while if returnåµŒå¥—ä¹Ÿå¯èƒ½ä¼šæœ‰ä¸æ˜¯è¿™ä¸ªå€¼çš„æƒ…å†µå‡ºç°ï¼Œæ‰€
-//é”™è¯¯ä¸ƒ strcmp(sign->deviceName,name)==0 çš„æ¡ä»¶ä¸‹ï¼Œå¦‚æœæˆç«‹é‚£ä¹ˆå°±æ„å‘³ç€ sign = phead,æ‰€ä»¥ç›´æ¥return sign
-//é”™è¯¯å…« æ¯”è¾ƒçš„å‡½æ•°æ˜¯strcmpï¼ï¼ï¼ï¼ï¼ï¼ï¼
-//é”™è¯¯ä¹ è¿™å°±æ˜¯é“¾è¡¨çš„æŸ¥æ‰¾ strcmpé‡Œé¢çš„æ¯”è¾ƒæ˜¯ç”¨æŒ‡é’ˆçš„é‚£ä¸ªç»“æ„ä½“é‡Œé¢çš„åå­—ï¼Œå’Œä¼ è¿›æ¥çš„åå­—åšæ¯”è¾ƒ  æ‰€ä»¥æœ‰strcmp(sign->deviceName, name) ,è‹¥ä¸ºé›¶åˆ™æ‰¾åˆ°
-//é”™è¯¯å å½“å‘ç°è¿™ä¸ªtmpæ‰¾åˆ°äº†ä¹‹åï¼Œå…ˆè°ƒç”¨åˆå§‹åŒ–ï¼Œç„¶åè°ƒç”¨æ‰“å¼€çš„å‡½æ•°ï¼Œè¿™ä¸ªå‡½æ•°çœ‹çœ‹éœ€è¦ä»€ä¹ˆå‚æ•°ç„¶åé€šè¿‡tmpæ¥è°ƒ å¦‚ï¼štmp->deviceInit(tmp->pinNum)
-//é”™è¯¯åä¸€ strcmpé‡Œé¢ä¼ è¿›å»çš„å€¼æ˜¯ä¸¤ä¸ªæŒ‡é’ˆï¼Œæ‰€ä»¥è¦ç”¨char * name
-//é”™è¯¯åäºŒ å¦‚æœéœ€è¦ä¸æ–­çš„è¿›è¡Œçš„ä¸œè¥¿å°±éœ€è¦æ”¾å…¥whileä¸­ï¼Œ printf scanf
-//é”™è¯¯åä¸‰ tmpä¹Ÿè¦æ”¾åˆ°å¾ªç¯ä¸­ï¼Œå› ä¸ºæ¯ä¸€æ¬¡éƒ½è¦è¯»å–æ–°çš„è¾“å…¥ï¼Œç„¶åè°ƒç”¨æ¯”è¾ƒçš„å‡½æ•°
+//²½ÖèÒ» ±ê×¼print ËùÒÔÓĞÕâ¾ä#include <stdio.h>
+//²½Öè¶ş ¿ØÖÆÉè±¸Í·ÎÄ¼ş           #include "contrlDevices.h"
+//²½ÖèÈı µ÷ÓÃÔ¡ÊÒµÆ  struct Devices *pdeviceHeadµÄÓÉÀ´
+//²½ÖèËÄ ÉèÒ»¸ötmpÖ¸ÕëÀ´ÕÒ½ĞÔ¡ÊÒµÆµÄÉè±¸ struct Devices *tmpµÄÓÉÀ´
+//²½ÖèÎå ×öÒ»¸öÍ¨ÓÃµÄÕÒÉè±¸º¯Êı-findDeviceByName,ÀïÃæÓÃstrcmpÀ´±È½ÏÏàµÈ
+//²½ÖèÁù ¼ÓÉÏ#include<string.h>  --ÓÃÁËstrcmpº¯ÊıµÄÔ­ÓÉ
+//²½ÖèÆß Ê÷İ®ÅÉ¿â³õÊ¼»¯           wiringPiSetupµÄÓÉÀ´
+//²½Öè°Ë ÓÉÓÚÔö¼ÓÁËËÄ¸öµÆ£¬ËùÒÔĞèÒªÓÃ»§ÅĞ¶ÏÊäÈë£¬²¢ÇÒ¼ÓÁËËÄ¸öÁ´±í
+//²½Öè¾Å char nameÈ»ºóÈÃÓÃ»§ÊäÈë½øÀ´£¬tmp¸ºÔğÈ¥ÕÒÊÇÄÄ¸öÖ¸Áî
+//²½ÖèÊ® °ÑÉùÒôÖ¸ÁîÄ£¿é¼Ó½øÀ´£¬pcommandHeadµÄÓÉÀ´
+//²½ÖèÊ®Ò» ³öÏÖ¶àÖØ¶¨Òå Ñ¡ÖĞËüÈ»ºóctrl+Ğ±¸Ë ¿ì½İ¼üÕÒ³öÀ´
+
+//²½Öè1 ÉùÒôÏß³Ì³ØµÄ½¨Á¢  pthread_createº¯ÊıµÄÓÉÀ´
+//²½Öè2 ¶¨ÒåÒ»¸ö±äÁ¿ pthread_t voice_pthread µÄÓÉÀ´
+//²½Öè3 ´«voice_pthread µ½3.1ÓïÒôÀïÃæÈ¥
+//²½Öè4 ´´½¨ÉùÒôº¯Êı£¬Æô¶¯Ïß³ÌÊ±µ÷ÓÃµÄº¯Êı  void *voice_thread(void* datas)µÄÓÉÀ´
+//²½Öè5 È»ºóÍ¬Ñù·½Ê½´´½¨socketÏß³Ì
+//²½Öè6 ÕÒ³öÉùÒôµÄÖ¸Áî ËùÒÔtmpÔÚÉùÒôº¯ÊıÀïÃæµÄÓÉÀ´£¬¸üÃûÎªvoiceHandler
+//²½Öè7 ÎªÁËÉùÒôº¯ÊıÒ²ÄÜµ÷ÓÃÁ´±íÍ· struct InpuCommand *pCommandhead·Åµ½ÁË×îÍâÃæ-È«¾ÖµÄÓÉÀ´
+//²½Öè8 Èç¹ûÕÒµ½voiceµÄ»° µ÷ÓÃInitº¯Êı
+//²½Öè9 Ïß³ÌÄÚÊÇ²»ÄÜreturnµÄ
+//²½Öè10 ³õÊ¼»¯³É¹¦»ñÈ¡Ö¸Áî£¬Ö¸ÁîÒª·Å»Ø×ÔÉí voiceHandler->getCommand(voiceHandler)µÄÓÉÀ´
+//²½Öè11 ½ÓÊÕÉÏÃæµÄÖ¸Áî int nreadµÄÓÉÀ´
+//²½Öè12 ÕÒ²»µ½ÔòÍË³öÏß³Ì pthread_exit()µÄÓÉÀ´
+//²½Öè13 ÈÃÉùÒôÏß³Ì²»¶ÏµÄ¶Á ²»¶ÏµÄÈ¥²Ù×÷ nreadÍâÌ×whileµÄÓÉÀ´
+//²½Öè14 ÏòInit´«Èı¸ö²ÎÊı£¬½á¹¹Ìå±¾Éí£¬¿Õ£¬¿Õ  voiceHandler->Init(voicehandler,NULL,NULL)µÄÓÉÀ´
+
+//²½Öè1 socketÏß³ÌµÄ½¨Á¢
 #include <stdio.h>
 #include <string.h>
 #include "contrlDevices.h"
+#include "inputCommand.h"
 
-struct Devices* findDeviceByName(char *name,struct Devices* phead)
+struct Devices *pdeviceHead = NULL;
+struct InputCommander *pcommandHead = NULL;
+
+
+struct Devices* findDeviceByName(char *name,struct Devices *phead)
 {
-    struct Devices* sign  = NULL;
-    if(sign == NULL)
-    {
-        return NULL;
-    }else{
-        while(sign != NULL)
-        {
-            if(strcmp(sign->deviceName,name) == 0)
-            {
-                return sign;
-            }
-            sign = sign->next;
-        }
-        return NULL;
-    }
+	struct Devices *zhiZhen = phead;
+	if(zhiZhen == NULL)
+	{
+		return NULL;
+	}else{
+		while (zhiZhen != NULL)
+		{
+			if(strcmp(zhiZhen->deviceName,name)==0)
+			{
+				return zhiZhen;
+			}
+			zhiZhen = zhiZhen->next;			
+		}
+		return NULL;
+	}
+}
 
-};
+//Æô¶¯ÉùÒôÏß³Ìµ÷ÓÃµÄº¯Êı ¹¤×÷Ô­Àí£¬Ö»ÒªÉùÒô²»Îª¿ÕµÄ£¬Init¿´ÊÇ·ñ>=³õÊ¼»¯£¬³õÊ¼»¯Ö®ºóÃ»¶Áµ½Ôò´òÓ¡Ò»ĞĞ£¬¶Áµ½Ôò´òÓ¡¶Áµ½µÄ
+void *voice_thread(void* datas)
+{
+	struct InputCommander *voicehandler;
+	
+	voicehandler = findDeviceByName("voice",pcommandHead); 
+	if(voicehandler == NULL){
+		printf("Not find voiceHandler\n");
+		pthread_exit();
+	}else{
+		if(voiceHandler->Init(voicehandler,NULL,NULL) < 0)
+		{
+			printf("Init is error");
+			pthread_exit();
+		}else{
+			while(1){
+				nread = voiceHandler->getCommand(voicehandler);
+				if(nread == 0)
+				{
+					printf("no data form voice\n");
+				}else{
+					printf("do device contrl:%s\n",voicehandler->command);
+				}
+			}
+		}
+	}
+}
+
+void *socket_thread(void* datas)
+{
+	struct InputCommander *sockethandler;
+	
+	sockethandler = findDeviceByName("socketContrl",pcommandHead); 
+	if(sockethandler == NULL){
+		printf("Not find sockethandler\n");
+		pthread_exit();
+	}
+	sock
+}
 
 int main()
 {
-    char name[128];
-    struct Devices *tmp = NULL;
-    if(wiringPiSetup() == -1)
-    {
-        return -1;
-    }
-    struct Devices *devicehead = NULL;
-    devicehead = addBathroomLightToDevicesLink(devicehead);
-    devicehead = addFireToDevicesLink(devicehead);
+	//µ÷ÓÃÔ¡ÊÒµÆ
+	char name[128];
+	pthread_t voice_thread;
+	pthread_t socket_thread;
+	
+	struct Devices *tmp = NULL;
+	if (wiringPiSetup() == -1)
+		{
+			return -1;
+		}
+	struct Devices *pdeviceHead = NULL;
+	//Éè±¸¹¤³§³õÊ¼»¯
+	pdeviceHead = addBathroomLightToDeviceLink(pdeviceHead);
+	pdeviceHead = addLivingroomLightToDeviceLink(pdeviceHead);
+	pdeviceHead = addRestaurantLightToDeviceLink(pdeviceHead);
+	pdeviceHead = addSecondflootLightToDeviceLink(pdeviceHead);
+	pdeviceHead = addFireToDeviceLink(pdeviceHead);
+	
 
-    while(1)
-    {
-        printf("select your input\n");
-        scanf("%s",name);
-        tmp = findDeviceByName(name,devicehead);
-        if(tmp != NULL)
-        {
-            tmp->deviceInit(tmp->pinNum);
-            tmp->open(tmp->pinNum);
-        }
-    }
-    return 0;
+	
+	struct InputCommander *pcommandHead = NULL;
+	//Ö¸Áî¹¤³§³õÊ¼»¯
+	pcommandHead = addvoiceContrlToInputCommandLink(pcommandHead);
+	pcommandHead = addsocketContrlToInputCommandLink(pcommandHead);
+	
+	//ÒòÎªtmp½øÈëfindº¯ÊıÖ®ºóÎªNULL¾Í·µ»ØNULL£¬È»ºó»áÌø¹ıÏÂÃæµÄif
+	while (1)
+		{
+			printf("Select bathroomLight livingroomLight restaurantLight secondflootLight\n");
+			printf("Input:\n");
+			scanf("%s",name);
+			tmp = findDeviceByName(name,pdeviceHead);
+			if(tmp != NULL){
+					tmp->deviceInit(tmp->pinNum);
+					tmp->open(tmp->pinNum);
+			}
+		}
+
+	
+	//pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(start_routine)(void*), void *arg) µÚ¶ş¸öÖµÊÇÏß³ÌµÄÊôĞÔ
+	//3.Ïß³Ì³ØµÄ½¨Á¢
+	//3.1 ÓïÒôÏß³Ì	--Í¨¹ıÓïÒô¿ØÖÆµÆ
+	pthread_create(&voice_thread, NULL, voice_thread, NULL);
+	
+	//3.2 socketÏß³Ì   --Í¨¹ıTCPĞ­Òé¿ØÖÆµÆ
+	pthread_create(&socket_thread, NULL, socket_thread, NULL);
+	//3.3 ÉãÏñÍ·Ïß³Ì
+	
+	//3.4 »ğÔÖÏß³Ì
+	
+	
+	return 0;
 }

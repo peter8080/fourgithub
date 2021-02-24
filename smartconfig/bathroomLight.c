@@ -1,73 +1,52 @@
-//é”™è¯¯ä¸€ æ™®é€šåˆ›å»ºç»“æ„ä½“å¹¶ä¸éœ€è¦ *å•¥çš„ ç›´æ¥struct Devices bathroomLight = {.pinNum...} ;
-//é”™è¯¯äºŒ åˆå§‹åŒ–çš„æ—¶å€™å°±åº”è¯¥digitalWriteï¼ˆpinNumï¼ŒHIGHï¼‰ä¸€ä¸‹
-//é”™è¯¯ä¸‰ å¤´æ’æ³•è¿”å›çš„æ˜¯æŒ‡é’ˆï¼Œæ‰€ä»¥è¦åŠ *ï¼Œè¦ç”¨è‡ªèº«ä½œä¸ºæŒ‡é’ˆ
-//é”™è¯¯å›› åœ¨ç‚¹çš„ç»“æ„ä½“é‡Œé¢ä¸ç”¨åŠ ;å·
-
-/*struct Devices
-{
-
-    char deviceName[128];
-    int status;
-    int pinNum;
-    int (*close)(int pinNum);
-    int (*open)(int pinNum);
-    int (*read)(int pinNum);
-    int (*deviceInit)(int pinNum);
-    struct Devices *next;
-};
-*/
+//Ô¡ÊÒµÆ¿ò¼Ü±àĞ´
+//²½ÖèÒ» ÒıÈëÍ·ÎÄ¼ş-¿ØÖÆÉè±¸ 
+//²½Öè¶ş ´´½¨Ò»¸öÔ¡ÊÒµÄ½á¹¹Ìå              ×¢£ºÓÃ=ºÅ
+//²½ÖèÈı Í¨¹ı.nameµÄĞÎÊ½µ÷ÓÃ½á¹¹ÌåÄÚÈİ                 µ÷µÆµÄÃû×Ö ¿ª¹Ø ³õÊ¼»¯ ½á¹¹ÌåµÚ1.2.3.4µÄÓÉÀ´
+//²½ÖèËÄ Î¬»¤µÆµÄ×´Ì¬ ½á¹¹ÌåµÚ5ĞĞµÄÓÉÀ´
+//²½ÖèÎå ´´½¨¿ª,¹Ø£¬³õÊ¼»¯Ô¡ÊÒµÆµÄº¯Êı
+//²½ÖèÁù ´´½¨Ò»¸ö¿ØÖÆµÆ×´Ì¬µÄº¯Êı£¨´«Èë×´Ì¬£© ÉÏµ½ÏÂµÚËÄ¸öº¯ÊıµÄÓÉÀ´
+//²½ÖèÆß °ÑÔ¡ÊÒµÆ¼Óµ½Éè±¸¿ØÖÆÁ´±íÖĞ--Í·²å·¨
+//²½Öè°Ë Õâ¸öÔ¡ÊÒµÆµÄÒı½ÅÉèÎª22               .pinNum = 22,°ÑpinNumÖµ´«½ø¸÷¸öº¯Êı
+//²½Öè¾Å ³õÊ¼»¯Ô¡ÊÒµÆ pinModeÎªÊä³ö£¬²¢ÇÒ¿ªÊ¼Îª¸ßµçÆ½
 #include "contrlDevices.h"
 
-
-int openbathroomLight(int pinNum)
+int bathroomLightOpen(int pinNum)
 {
-    digitalWrite(pinNum, LOW);
-    printf("openbathroomLight is open");
+	digitalWrite(pinNum,LOW);
 }
-
-int closebathroomLight(int pinNum)
+int bathroomLightClose(int pinNum)
 {
-    digitalWrite(pinNum, HIGH);
-    printf("openbathroomLight is close");
+	digitalWrite(pinNum,HIGH);
 }
-
-int initbathroomLight(int pinNum)
+int bathroomLightInit(int pinNum)
 {
-    pinMode(pinNum,OUTPUT);
-    digitalWrite(pinNum, 1);
+	pinMode(pinNum,OUTPUT);
+	digitalWrite(pinNum,HIGH);
 }
-
-struct Devices
+int bathroomLightCloseStatus(int status)
 {
-    char deviceName[128];
-    int status;
-    int pinNum;
-    int (*close)(int pinNum);
-    int (*open)(int pinNum);
-    int (*read)(int pinNum);
-    int (*deviceInit)(int pinNum);
-    struct Devices *next;
+	
+}
+struct Devices bathroomLight = {
+	.deviceName = "bathroomLight",
+	.pinNum = 21,
+	.open = bathroomLightOpen,
+	.close = bathroomLightClose,
+	.deviceInit = bathroomLightInit,
+	.changeStatus = bathroomLightCloseStatus
 };
 
-struct Devices bathroomLight = 
+//ÕâÊÇÒ»¸ö½Ó¿Ú-¡·ĞèÒª±©Â¶¸øÍ·ÎÄ¼ş£¬²¢ÇÒÔÚmainÖĞµ÷ÓÃ
+//²¢ÇÒ µ±Õâ¸öº¯Êı±»µ÷ÓÃµÄÊ±ºò-¡·°ÑbathroomLight¼ÓÈëÁ´±íÖĞ
+struct Devices* addBathroomLightToDeviceLink(struct Devices *phead)
 {
-    .deviceName = "bathroomLight",
-    .pinNum = 21,
-    .open = openbathroomLight,
-    .close = closebathroomLight,
-    .deviceInit = initbathroomLight,
-    .next = NULL
+	if(phead == NULL){
+		phead = &bathroomLight;
+		return phead;
+	}else{
+		bathroomLight.next = phead;
+		phead = &bathroomLight;
+		return phead;
+	}
 };
 
-struct Devices* addBathroomLightToDevicesLink(struct Devices* phead)
-{
-    if(phead == NULL)
-    {
-        phead = &bathroomLight;
-        return phead;
-    }else{
-        bathroomLight.next = phead;
-        phead = &bathroomLight;
-        return phead;
-    }
-};

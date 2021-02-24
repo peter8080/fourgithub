@@ -1,22 +1,38 @@
-//é”™è¯¯ä¸€ å¿˜è®°åŠ åˆå§‹åŒ–  int(*deviceInit)(int pinNum)
-//é”™è¯¯äºŒ ä»–æ˜¯æœ€åŸå§‹çš„ç»“æ„ä½“äº†
-//#include <wiringPi.h>
-#include <stdlib.h>
+//¿ØÖÆÉè±¸Í·ÎÄ¼ş
+//²½ÖèÒ» ´´½¨½á¹¹Ìå
+//²½Öè¶ş ÉùÃ÷Éè±¸Ãû×ÖµÄ¿Õ¼ä               µÚÒ»  ĞĞµÄÓÉÀ´char deviceName[128];  
+//²½ÖèÈı ÉùÃ÷Éè±¸µÄ×´Ì¬             µÚ¶şĞĞµÄÓÉÀ´int status;
+//²½ÖèËÄ ¿ª£¬¹Ø£¬Éè±¸³õÊ¼»¯,»ğÔÖ·½ÃæµÄ--¶Á×´Ì¬£¬¸Ä±ä×´Ì¬£¨¶¼ÓÃº¯ÊıÖ¸Õë£© µÚ3.4.5ĞĞµÄÓÉÀ´int (*open)(); 
+//²½ÖèÎå ½á¹¹ÌåÖ¸Õë±Ø±¸µÄnext µÚ°ËĞĞµÄÓÉÀ´struct Devices *next;
+//²½ÖèÁù ÉùÃ÷Òı½Å µÚÈıĞĞµÄÓÉÀ´int pinNum;
+//²½ÖèÆß ĞèÒª´«²Î¸øº¯ÊıÖ¸Õë int (*open)(int pinNum);-ºóÃæÀ¨ºÅÄÚÈİµÄÓÉÀ´ 
+//²½Öè°Ë °üº¬wiringPiµÄÍ·ÎÄ¼ş£¬ÒòÎªËùÓĞÉè±¸¶¼»áµ÷ÓÃÎÒÃÇÕâ¸öÍ·ÎÄ¼ş
 
+#include <wiringPi.h>
+#include <stdlib.h>
 
 struct Devices
 {
-    char deviceName[128];
-    int status;
-    int pinNum;
-    int (*close)(int pinNum);
-    int (*open)(int pinNum);
-    int (*read)(int pinNum);
-    int (*deviceInit)(int pinNum);
-    struct Devices *next;
+	char deviceName[128];  //Éè±¸Ãû×Ö
+	int status; //×´Ì¬
+	int pinNum; 
+	int (*open)(int pinNum); 
+	int (*close)(int pinNum);
+	int (*deviceInit)(int pinNum); 
+	int (*readStatus)(int pinNum);
+	int (*changeStatus)(int status);
+	struct Devices *next;
+	
 };
 
-struct Devices* addBathroomLightToDevicesLink(struct Devices* phead);
-struct Devices* addFireToDevicesLink(struct Devices* phead);
+struct Devices* addBathroomLightToDeviceLink(struct Devices *phead);
+struct Devices* addRestaurantLightToDeviceLink(struct Devices *phead);
+struct Devices* addLivingroomLightToDeviceLink(struct Devices *phead);
+struct Devices* addSecondflootLightToDeviceLink(struct Devices *phead);
+struct Devices* addFireToDeviceLink(struct Devices *phead);
+
+
+
+
 
 
