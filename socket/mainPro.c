@@ -15,8 +15,9 @@
 //错误3 线程的函数传的参数 void *datas
 //错误4 初始化成功之后才开始while(1)
 //错误5 else以后是可以直接if的   if(...){}else{ if(){}else{} }的由来
-//kkkkkkk测试1
-
+//错误6 Init里面传的是NULL而不是0 Init(voiceHandler,NULL,NULL)的由来
+//错误7 c_addr是一个结构体，所以要强制指针转换并且要取地址  
+//错误8 sizeof(struct sockaddr_in)  这种有struct的才是一个结构体完整的大小
 #include <stdio.h>
 #include <string.h>
 #include "contrlDevices.h"
@@ -51,11 +52,11 @@ void *voice_thread(void *datas)
     voiceHandler = findDeviceByName("voice",voiceHandler);
     if(voiceHandler == NULL)
     {
-        printf("this is not find");
+        printf("this is not failed");
         pthread_exit();
     }
     else{
-        if(voiceHandler->Init(voiceHandler,0,0) < 0){
+        if(voiceHandler->Init(voiceHandler,NULL,NULL) < 0){
             printf("Init is fail");
             pthread_exit();
         }else{
@@ -70,13 +71,46 @@ void *voice_thread(void *datas)
         }
     }
 }
+void *read_thread(void *datas)
+{
 
+}
 
+void *socket_thread(void *datas)
+{
+    pthread_t readThread;
+    int c_fd;
+    struct sockaddr_in c_addr;
+    /*原型是extern void *memset(void *buffer, int c, int count)
+    buffer为指针或是数组,c是赋给buffer的值,count是buffer的长度.
+    这个函数在socket中多用于清空数组.
+    如:原型是memset(buffer, 0, sizeof(buffer))*/
+    memset(c_addr,0,sizeof(struct sockaddr_in));
+    int clen = sizeof(struct sockaddr_in);
+
+    struct InputCommand* socketHandler;
+    socketHandler = findDeviceByName("socket",socketHandler);
+    if(socketHandler == NULL){
+        printf("this socket_thread is failed");
+        pthread_exit();
+    }
+    socketHandler->Init(socketHandler,NULL,NULL)
+    else{
+        while(1)
+        {
+            //int accept(int sockfd,struct sockaddr *addr,socklen_t *addrlen);
+            c_fd = accept(socketHandler->sfd,(struct sockaddr *)&c_addr,&clen)；
+            pthread_create(&readThread,0,read_thread,0);
+        }
+    }
+
+}
 int main()
 {
     char name[128];
 
     pthread_t voiceThread;
+    pthread_t socketThread;
     struct Devices *tmp = NULL;
     if(wiringPiSetup() == -1)
     {
@@ -100,5 +134,6 @@ int main()
     }
 
     pthread_create(&voiceThread,0,voice_thread,0);
+    pthread_create(&socketThread,0,socket_thread,0);
     return 0;
 }
