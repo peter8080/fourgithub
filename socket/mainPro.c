@@ -15,7 +15,8 @@
 //错误3 线程的函数传的参数 void *datas
 //错误4 初始化成功之后才开始while(1)
 //错误5 else以后是可以直接if的   if(...){}else{ if(){}else{} }的由来
-//kkkkkkk测试
+//kkkkkkk测试1
+
 #include <stdio.h>
 #include <string.h>
 #include "contrlDevices.h"
