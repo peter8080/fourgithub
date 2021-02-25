@@ -18,6 +18,7 @@
 //错误6 Init里面传的是NULL而不是0 Init(voiceHandler,NULL,NULL)的由来
 //错误7 c_addr是一个结构体，所以要强制指针转换并且要取地址  
 //错误8 sizeof(struct sockaddr_in)  这种有struct的才是一个结构体完整的大小
+//test git commit -m "17:52"
 #include <stdio.h>
 #include <string.h>
 #include "contrlDevices.h"
